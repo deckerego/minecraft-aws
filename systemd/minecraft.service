@@ -1,0 +1,12 @@
+[Unit]
+Description=Minecraft Server
+Wants=network-online.target
+
+[Service]
+User=minecraft
+WorkingDirectory=/opt/minecraft/server
+ExecStart=java -Xmx1300M -Xms1300M -jar server.jar nogui
+StandardInput=null
+
+[Install]
+WantedBy=multi-user.target
