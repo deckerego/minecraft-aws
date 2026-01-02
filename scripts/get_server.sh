@@ -1,6 +1,5 @@
 #!/bin/bash
-#DESTINATION='/opt/minecraft'
-DESTINATION='.'
+DESTINATION='/opt/minecraft'
 TEMP_DIR='.'
 
 MANIFEST=$(curl -s https://piston-meta.mojang.com/mc/game/version_manifest.json)
