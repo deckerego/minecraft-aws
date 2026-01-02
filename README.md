@@ -24,25 +24,12 @@ Within the `resources` directory there is one base file:
 
 ## Cost Breakdown
 
-A publicly accessible, Fargate-powered ECS service with a single task,
-1 vCPU, and 3gb of RAM will cost you about $3.22 a day at current rates.
-Of that, $1.29 is for the actual container resource costs,
-$0.54 is for the [load balancer](https://aws.amazon.com/elasticloadbalancing/pricing/),
-and $1.08 is for the [NAT gateway](https://aws.amazon.com/vpc/pricing/) in the VPC.
+A dynamically allocated public IPv4 address will cost around $0.12 a day.
 
-This means your bare minimum cost per day, even if your container is
-powered down, is $1.62 a day, or $49.31 a month. If you use your Minecraft
-server 12.5% of the month, that's still $54.98. Running full bore would
-run you about $94.66 a month.
+If you stay within the free EC2 tier your compute cost can remain at $0, 
+but EBS GP3 storage will add $0.03 a day depending on the size you provision.
 
-This doesn't even deal with S3, data transfer, Elastic IP,
-or container storage costs. Bottom line - you aren't going to get better than
-$8 per month on hosting unless you operate **many** worlds in a single
-cluster, sharing a load balancer and a NAT gateway and reducing runtime to
-around 2gb of memory.
+I haven't seen measurable data transfer costs yet with low usage,
+but let's estimate that will add another $0.02 a day.
 
-Given all that, I decided to archive this project and chalk it up to a
-learning experience. Still - this was a nifty project, if for no other reason
-than it spells out how to manage an ECS cluster hosting an externally-facing
-container using a Lambda-based API for management with Cognito for auth.
-So that's fun.
+That would bring costs to about $0.17 a day, or around $5.18 a month.
