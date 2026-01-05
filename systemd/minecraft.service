@@ -5,8 +5,11 @@ Wants=network-online.target
 [Service]
 User=minecraft
 WorkingDirectory=/opt/minecraft/server
-ExecStart=screen -d -m -S minecraft java -Xmx1300M -Xms1300M -jar server.jar nogui
-StandardInput=null
+ExecStart=java -Xmx1300M -Xms1300M -jar server.jar nogui
+Sockets=minecraft.socket
+StandardInput=socket
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
