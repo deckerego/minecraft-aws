@@ -1,16 +1,6 @@
 #!/bin/bash
 DESTINATION='/opt/minecraft'
-TEMP_DIR='.'
 USER='minecraft'
-
-id minecraft
-if [[ "$?" -ne 0 ]];
-    echo "Create minecraft user"
-    sudo useradd minecraft
-fi
-
-echo "Creating directories"
-sudo mkdir -p "$DESTINATION"
 
 MANIFEST=$(curl -s "https://piston-meta.mojang.com/mc/game/version_manifest.json")
 LATEST=$(echo "$MANIFEST" | jq -r '.["latest"]["release"]')
@@ -22,14 +12,14 @@ DOWNLOAD_HASH=$(echo $METADATA | jq -r '.["downloads"]["server"]["sha1"]')
 DOWNLOAD_URL=$(echo $METADATA | jq -r '.["downloads"]["server"]["url"]')
 echo "Downloading $DOWNLOAD_URL"
 
-echo 'eula=true' > "$DESTINATION/eula.txt"
-curl -o "$TEMP_DIR/server.jar" "$DOWNLOAD_URL"
-CALCULATED_HASH=$(sha1sum "$TEMP_DIR/server.jar")
+curl -o "$DESTINATION/server.tmp" "$DOWNLOAD_URL"
+CALCULATED_HASH=$(sha1sum "$DESTINATION/server.tmp")
 echo "Verifying $CALCULATED_HASH"
 
-if [[ "$CALCULATED_HASH" = "$DOWNLOAD_HASH  $TEMP_DIR/server.jar" ]]; then
+if [[ "$CALCULATED_HASH" = "$DOWNLOAD_HASH  $DESTINATION/server.tmp" ]]; then
     echo "Updating $DESTINATION/server.jar"
-    mv "$TEMP_DIR/server.jar" "$DESTINATION/server.jar"
+    mv "$DESTINATION/server.tmp" "$DESTINATION/server.jar"
+    echo 'eula=true' > "$DESTINATION/eula.txt"
     sudo chown -R "$USER" "$DESTINATION"
     exit 0
 else

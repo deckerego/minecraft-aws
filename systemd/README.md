@@ -1,4 +1,4 @@
-## Installing system startup script
+## Installing systemd service
 
 1. cp minecraft.service /etc/systemd/system/
 1. sudo systemctl daemon-reload

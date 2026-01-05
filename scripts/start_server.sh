@@ -1,3 +1,6 @@
 #!/bin/bash
 
-java -Xmx1300M -Xms1300M -jar server.jar nogui
+DESTINATION='/opt/minecraft'
+MEMORY="1300M"
+
+java "-Xmx$MEMORY" "-Xms$MEMORY" -jar "$DESTINATION/server.jar" nogui

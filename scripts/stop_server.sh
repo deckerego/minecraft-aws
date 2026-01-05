@@ -6,4 +6,4 @@ echo "Sending stop command..."
 echo "stop" > /run/minecraft.stdin
 
 echo "Waiting for service to finish..."
-tail --pid $MAINPID -f /dev/null
+tail --pid "$MAINPID" -f /dev/null
