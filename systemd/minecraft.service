@@ -5,7 +5,7 @@ Wants=network-online.target
 [Service]
 User=minecraft
 WorkingDirectory=/opt/minecraft/server
-ExecStart=java -Xmx1300M -Xms1300M -jar server.jar nogui
+ExecStart=screen -d -m -S minecraft java -Xmx1300M -Xms1300M -jar server.jar nogui
 StandardInput=null
 
 [Install]
