@@ -1,0 +1,3 @@
+#!/bin/bash
+
+java -Xmx1300M -Xms1300M -jar server.jar nogui

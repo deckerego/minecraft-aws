@@ -5,7 +5,8 @@ Wants=network-online.target
 [Service]
 User=minecraft
 WorkingDirectory=/opt/minecraft/server
-ExecStart=java -Xmx1300M -Xms1300M -jar server.jar nogui
+ExecStart=/opt/minecraft/start_server.sh
+ExecStop=/opt/minecraft/stop_server.sh
 Sockets=minecraft.socket
 StandardInput=socket
 StandardOutput=journal

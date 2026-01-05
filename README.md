@@ -11,11 +11,6 @@ The goal is to get pricing underneath the $7.99 USD per month rate
 for a Java Realms account.
 
 
-## How to Install
-
-1. Add minecraft user with `adduser minecraft`
-
-
 ## How to Configure
 
 So that you can tweak and modify this layout for your own use, you may want 
