@@ -5,6 +5,7 @@ Wants=network-online.target
 [Service]
 User=minecraft
 WorkingDirectory=/opt/minecraft/server
+ExecStartPre=-/opt/minecraft/upgrade_server.sh
 ExecStart=/opt/minecraft/start_server.sh
 ExecStop=/opt/minecraft/stop_server.sh
 Sockets=minecraft.socket
