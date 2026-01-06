@@ -1,11 +1,19 @@
 #!/bin/bash
-DESTINATION='/opt/minecraft'
+
 USER='minecraft'
+DESTINATION="${1:-/opt/minecraft}"
+
+VERSION_LOCAL=$(unzip -p $DESTINATION/server.jar META-INF/versions.list | awk '{ print $2 }')
+echo "Current version: $VERSION_LOCAL"
 
 MANIFEST=$(curl -s "https://piston-meta.mojang.com/mc/game/version_manifest.json")
 LATEST=$(echo "$MANIFEST" | jq -r '.["latest"]["release"]')
-echo "Getting metadata for $LATEST"
+if [[ "$LATEST" == "$VERSION_LOCAL" ]]; then
+    echo "Already at latest version $LATEST"
+    exit 1
+fi
 
+echo "Getting metadata for $LATEST"
 LATEST_URL=$(echo "$MANIFEST" | jq -r '.["versions"] | map(select(.["id"] == "'"$LATEST"'"))[0] | .["url"]')
 METADATA=$(curl -s "$LATEST_URL")
 DOWNLOAD_HASH=$(echo $METADATA | jq -r '.["downloads"]["server"]["sha1"]')
