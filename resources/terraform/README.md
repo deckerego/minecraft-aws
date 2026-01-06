@@ -1,11 +1,17 @@
-This Terraform configuration provisions a single EC2 instance for a Minecraft Java server.
+# Terraform Templates
 
-Important notes:
-- This configuration does NOT include any User Data (per request).
-- This configuration does NOT provision an Elastic IP.
-- The security group opens TCP/25565 (Minecraft) to the public internet and allows SSH from the CIDR provided via `var.ssh_cidr`.
+This is intended to be a Terraform-enabled version of an
+[AWS for Games Blog post](https://aws.amazon.com/blogs/gametech/setting-up-a-minecraft-java-server-on-amazon-ec2/)
+that details how to build a Minecraft server manually, leaning in to the free tier when possible. 
 
-Usage:
+This setup skips the user data steps of the tutorial and does not provision an Elastic IP,
+instead relying on the [setup scripts](../scripts/) and [systemd service](../systemd/)
+to be installed by copying the files over.
+
+**Note:** this does open TCP/25565 to the public internet. Make sure this instance is isolated from all your other workloads.
+
+
+## Setup
 
 1. Configure variables by editing `terraform.tfvars` or passing `-var` on the CLI.
 2. Initialize and apply:
