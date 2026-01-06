@@ -1,0 +1,17 @@
+[Unit]
+Description=Minecraft Server
+Wants=network-online.target
+
+[Service]
+User=minecraft
+WorkingDirectory=/opt/minecraft
+ExecStartPre=-/opt/minecraft/scripts/upgrade_server.sh
+ExecStart=/opt/minecraft/scripts/start_server.sh
+ExecStop=/opt/minecraft/scripts/stop_server.sh
+Sockets=minecraft.socket
+StandardInput=socket
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

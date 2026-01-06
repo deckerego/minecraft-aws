@@ -1,0 +1,3 @@
+[Socket]
+ListenFIFO=%t/minecraft.stdin
+Service=minecraft.service

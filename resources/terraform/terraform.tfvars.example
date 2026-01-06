@@ -1,0 +1,11 @@
+# Example terraform.tfvars for the Minecraft EC2 instance
+# Copy this file to `terraform.tfvars` and edit values before running `terraform apply`.
+
+aws_region    = "us-east-1"
+instance_type = "t4g.small"
+instance_name = "Minecraft Server"
+# key_name left blank will result in no key pair being assigned to the instance
+key_name      = "my-keypair"
+# Set this to the EC2 Instance Connect CIDR for your region, or your own admin IP/CIDR.
+ssh_cidr      = "203.0.113.0/29"
+ebs_size      = 8
