@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DESTINATION='/opt/minecraft'
+BASEDIR='/opt/minecraft'
 MEMORY="1300M"
 
-java "-Xmx$MEMORY" "-Xms$MEMORY" -jar "$DESTINATION/server.jar" nogui
+java "-Xmx$MEMORY" "-Xms$MEMORY" -jar "$BASEDIR/server.jar" nogui
