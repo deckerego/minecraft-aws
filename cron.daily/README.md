@@ -8,3 +8,6 @@
 1. sudo chown minecraft /etc/cron.daily/backup_server
 1. sudo chmod u+x /etc/cron.daily/backup_server
 1. Modify backup_server to have the correct name of the S3 bucket you created
+1. sudo cp check_server /etc/cron.daily
+1. sudo chown minecraft /etc/cron.daily/check_server
+1. sudo chmod u+x /etc/cron.daily/check_server
