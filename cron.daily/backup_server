@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/aws /opt/minecraft s3://amzn_s3_demo_fixme..

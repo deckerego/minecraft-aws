@@ -1,0 +1,12 @@
+[Unit]
+Description=Minecraft upgrade check
+After=network-online.target
+Wants=network-online.target
+ 
+[Service]
+Type=oneshot
+ExecStart=/opt/minecraft/scripts/upgrade_server.sh
+User=minecraft
+WorkingDirectory=/opt/minecraft
+
+[Install]
