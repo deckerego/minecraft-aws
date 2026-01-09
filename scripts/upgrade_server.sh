@@ -9,7 +9,7 @@ MANIFEST=$(curl -s "https://piston-meta.mojang.com/mc/game/version_manifest.json
 LATEST=$(echo "$MANIFEST" | jq -r '.["latest"]["release"]')
 if [[ "$LATEST" == "$VERSION_LOCAL" ]]; then
     echo "Already at latest version $LATEST"
-    exit 1
+    exit 0
 fi
 
 echo "Getting metadata for $LATEST"
