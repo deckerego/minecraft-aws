@@ -1,0 +1,12 @@
+[Unit]
+Description=Minecraft nightly backup
+After=network-online.target
+Wants=network-online.target
+ 
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/aws s3 sync /opt/minecraft s3://amzn_s3_demo_fixme..
+User=minecraft
+WorkingDirectory=/opt/minecraft
+
+[Install]

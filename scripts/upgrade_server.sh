@@ -1,6 +1,5 @@
 #!/bin/bash
 
-USER='minecraft'
 BASEDIR="${1:-/opt/minecraft}"
 
 VERSION_LOCAL=$(unzip -p $BASEDIR/server.jar META-INF/versions.list | awk '{ print $2 }')
@@ -10,7 +9,7 @@ MANIFEST=$(curl -s "https://piston-meta.mojang.com/mc/game/version_manifest.json
 LATEST=$(echo "$MANIFEST" | jq -r '.["latest"]["release"]')
 if [[ "$LATEST" == "$VERSION_LOCAL" ]]; then
     echo "Already at latest version $LATEST"
-    exit 1
+    exit 0
 fi
 
 echo "Getting metadata for $LATEST"
@@ -20,17 +19,20 @@ DOWNLOAD_HASH=$(echo $METADATA | jq -r '.["downloads"]["server"]["sha1"]')
 DOWNLOAD_URL=$(echo $METADATA | jq -r '.["downloads"]["server"]["url"]')
 echo "Downloading $DOWNLOAD_URL"
 
-curl -o "$BASEDIR/server.tmp" "$DOWNLOAD_URL"
-CALCULATED_HASH=$(sha1sum "$BASEDIR/server.tmp")
+DOWNLOAD_FILE=""$BASEDIR/server_$LATEST.jar""
+curl -o "$DOWNLOAD_FILE" "$DOWNLOAD_URL"
+CALCULATED_HASH=$(sha1sum "$DOWNLOAD_FILE")
 echo "Verifying $CALCULATED_HASH"
 
-if [[ "$CALCULATED_HASH" = "$DOWNLOAD_HASH  $BASEDIR/server.tmp" ]]; then
-    echo "Updating $BASEDIR/server.jar"
-    mv "$BASEDIR/server.tmp" "$BASEDIR/server.jar"
-    echo 'eula=true' > "$BASEDIR/eula.txt"
-    sudo chown -R "$USER" "$BASEDIR"
-    exit 0
-else
+if [[ "$CALCULATED_HASH" -ne "$DOWNLOAD_HASH  $DOWNLOAD_FILE" ]]; then
     echo "*** INVALID FILE, EXITING ***"
+    rm "$DOWNLOAD_FILE"
     exit -1
 fi
+
+echo "Updating $BASEDIR/server.jar"
+mv "$DOWNLOAD_FILE" "$BASEDIR/server.jar"
+
+echo "Re-starting to upgrade from $VERSION_LOCAL to $LATEST"
+systemctl stop minecraft
+systemctl start minecraft
