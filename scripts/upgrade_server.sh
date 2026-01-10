@@ -30,9 +30,7 @@ if [[ "$CALCULATED_HASH" -ne "$DOWNLOAD_HASH  $DOWNLOAD_FILE" ]]; then
     exit -1
 fi
 
-echo "Updating $BASEDIR/server.jar"
-mv "$DOWNLOAD_FILE" "$BASEDIR/server.jar"
-
-echo "Re-starting to upgrade from $VERSION_LOCAL to $LATEST"
+echo "Updating $BASEDIR/server.jar from $VERSION_LOCAL to $LATEST"
 systemctl stop minecraft
+mv "$DOWNLOAD_FILE" "$BASEDIR/server.jar"
 systemctl start minecraft
