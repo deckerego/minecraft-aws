@@ -7,8 +7,11 @@ User=minecraft
 WorkingDirectory=/opt/minecraft
 ExecStart=/opt/minecraft/scripts/start_server.sh
 ExecStop=/opt/minecraft/scripts/stop_server.sh
+Restart=on-failure
 Sockets=minecraft.socket
 StandardInput=socket
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
