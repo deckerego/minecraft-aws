@@ -24,7 +24,7 @@ curl -o "$DOWNLOAD_FILE" "$DOWNLOAD_URL"
 CALCULATED_HASH=$(sha1sum "$DOWNLOAD_FILE")
 echo "Verifying $CALCULATED_HASH"
 
-if [[ "$CALCULATED_HASH" -ne "$DOWNLOAD_HASH  $DOWNLOAD_FILE" ]]; then
+if [[ "$CALCULATED_HASH" != "$DOWNLOAD_HASH  $DOWNLOAD_FILE" ]]; then
     echo "*** INVALID FILE, EXITING ***"
     rm "$DOWNLOAD_FILE"
     exit -1
